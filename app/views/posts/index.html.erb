@@ -1,0 +1,153 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span10" style="background-color: #FFFFFF">
+        <!--Sidebar content-->
+        <!--22222222222222222222222-->
+            <div class="row-fluid">
+                <div class = "span4">
+                    <strong class="brand text-left" style="font-size: 25px; padding-left:1% ">
+                        Tule
+                    </strong>
+                    -<%= t("index.title")%>
+                </div>
+                <div class = "span2 offset6">
+                    <strong class="text-right">
+                    <%= link_to t("index.new"), new_post_path, class: "btn btn-success" %>
+                    </strong>
+                </div>
+            </div>
+            <legend></legend>
+    <!--first line end-->
+            <% @post.each do |p|%>
+                <legend>
+                    <div class="row-fluid">
+                        <div class = "span8">
+                            <%= link_to p.title, post_path(p), style: "padding-left: 1%"%>
+                        </div>
+                        <!--title End-->
+                        <div class = "span2">
+                        <%if current_user == nil%>
+                        <%elsif current_user.admin?%>
+                        <small>
+                            <%= link_to t("index.delete"), post_path(p),:method => :delete, class: "brand"%>
+                            <%= link_to t("index.update"), :controller => 'posts', :action => 'edit', :id => p %>
+                        <%elsif current_user.id == p.user_id %>
+                        <%= link_to t("index.update"), :controller => 'posts', :action => 'edit', :id => p %>
+                        <%else%>
+                        <%end%>
+                        </small>
+                        </div>
+                        <div class = "span2">
+                        <%= t("index.revertnum")%>
+                        <%= p.reverts.count %>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <small>
+                            <%= t("index.createtime")%>:<%=p.created_at.strftime('%Y-%m-%d %H:%M:%S').to_s %>
+                        </small>
+                        <small>
+                            <%= t("index.user")%>:<%= p.user.name%>
+                        </small>
+                        <%if p.reverts.last == nil %>
+                            <p></p>
+                        <%else%>
+                        <small>
+                            <%= t("index.last")%>:
+                            <%= User.find(Revert.where(:post_id => p.id).last.user_id).name%>
+                        </small>
+                        <%end%>
+                    </div>
+                </legend>
+            <% end %>
+            <!--table END-->
+            <div class="text-center">
+            <%= paginate @post %>
+            </div>
+        </div>
+<!--END LEFT-->
+
+        <div class="span2" style="background-color: #FFFFFF">
+    <!--Body content-->
+            <% if signed_in? %>
+                <p><%= image_tag current_user.photo.url%></p>
+                <p style="padding-left: 1%">
+                欢迎
+                </p>
+                <p style="padding-left: 1%">
+                用户:<%= current_user.name %>
+                </p>
+                <p style="padding-left: 1%">
+                光临Tule---论坛
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最搞笑的图片!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最动听的音乐!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最带感的新闻!
+                </p>
+            <% else %>
+                <p style="padding-left: 1%">
+                欢迎
+                </p>
+                <p style="padding-left: 1%">
+                <%= link_to '登录', new_user_session_path, 
+                class: "brand"%>
+                </p>
+                <p style="padding-left: 1%">
+                <%= link_to '注册', new_user_registration_path, 
+                class: "brand"%>
+                </p>
+                <p style="padding-left: 1%">
+                Tule---论坛
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最搞笑的图片!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最动听的音乐!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最带感的新闻!
+                </p>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<!--NODE-->
+
+<div class="container-fluid" >
+    <div class="row-fluid">
+        <div class="span10" style="background-color: #FFFFFF">
+            <div style="padding-left: 1%">
+            <p><%= t("index.node")%></p>
+        <% @node.each do |n|%>
+        <%= link_to n.name, node_posts_path(n)%>
+        &nbsp
+        <% end %>
+            </div>
+        </div>
+    </div>
+</div>

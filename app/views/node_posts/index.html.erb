@@ -1,0 +1,118 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span10" style="background-color: #FFFFFF">
+        <!--Sidebar content-->
+        
+        <legend>
+            <strong style="padding-left: 1%">
+                <%= link_to '首页', root_path%>
+                /<%= @node.name%>
+            </strong>
+            
+            <strong style="padding-left: 72%">
+            <% if current_user == nil %>
+                
+                <% else %>
+                <%= link_to '发表新帖子', new_post_path, class: "btn btn-success" %>
+            <% end %>
+            </strong>
+        </legend>
+            <% @post.each do |p|%>
+                <legend style="padding-left: 1%">
+                    <p class="muted">
+                        <%=link_to p.title, post_path(p)%>
+                    </p>
+                    <p>
+                        <%= t("index.revertnum")%>
+                        <%= p.reverts.count %>
+                        </p>
+                    <p>
+                        <small>
+                            发表时间:<%=p.created_at.strftime('%Y-%m-%d %H:%M:%S').to_s %>
+                        </small>
+
+                        <%if p.reverts.last == nil %>
+                            <p></p>
+                        <%else%>
+                        <small>
+                            <%= t("index.last")%>:
+                            <%= User.find(Revert.where(:post_id => p.id).last.user_id).name%>
+
+                        </small>
+                        <%end%>
+                    </p>
+                </legend>
+            <% end %>
+            <%= paginate @post %>
+        </div>
+
+               <div class="span2" style="background-color: #FFFFFF">
+    <!--Body content-->
+            <% if signed_in? %>
+                <p><%= image_tag current_user.photo.url%></p>
+                <p style="padding-left: 1%">
+                欢迎
+                </p>
+                <p style="padding-left: 1%">
+                用户:<%= current_user.name %>
+                </p>
+                <p style="padding-left: 1%">
+                光临Tule---论坛
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最搞笑的图片!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最动听的音乐!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最带感的新闻!
+                </p>
+                <p>
+                </p>
+            <% else %>
+                <p style="padding-left: 1%">
+                欢迎
+                </p>
+                <p style="padding-left: 1%">
+                <%= link_to '登录', new_user_session_path, 
+                class: "brand"%>
+                </p>
+                <p style="padding-left: 1%">
+                <%= link_to '注册', new_user_registration_path, 
+                class: "brand"%>
+                </p>
+                <p style="padding-left: 1%">
+                Tule---论坛
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最搞笑的图片!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最动听的音乐!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最带感的新闻!
+                </p>
+            <% end %>
+        </div>
+    </div>
+</div>

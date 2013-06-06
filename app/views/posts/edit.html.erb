@@ -1,0 +1,15 @@
+<div class="container" style="padding-left: 30%;">
+  <div class="row">
+    <%= form_for @post, :url => { :controller => 'posts', :action => 'update', :id => @post } do |post| %>
+    <%= t("index.node")%>
+    <%= post.select :node_id, Node.all.map { |c| [c.name, c.id] }%>
+    <%= post.label :title, t("index.titlep")%>
+    <%= post.text_field :title, class: "span7" %>
+    <%= post.label :content, t("index.content")%>
+    <%= post.text_area :content, class: "span7" %>
+    <p><%= t("index.img")%></p>
+    <p><%= post.file_field :avatar%> </p> 
+    <%= post.submit t("index.update") %>
+    <% end %>
+  </div>
+</div>

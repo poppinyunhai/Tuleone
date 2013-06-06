@@ -1,0 +1,121 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span10" style="background-color: #FFFFFF">
+    <!--Sidebar content-->
+        <legend style="padding-left: 1%">
+          <%= @post.title%>
+          <p>
+            <small>
+              <%= t("index.user")%>:<%=@user.name%> 
+              <%= t("index.createtime")%>:<%=@post.created_at.strftime('%Y-%m-%d %H:%M:%S').to_s %>
+            </small> 
+          </p>
+        </legend>
+        <p style="padding-left: 1%; padding-bottom: 30px">
+          <p style="padding-left: 1%; padding-bottom: 30px">
+            <%= @post.content%></p>
+          <% if @post.avatar_file_name == nil %>
+          <p></p>
+          <% else %>
+          <p><%= image_tag @post.avatar.url %></p>
+          <% end %>
+          </p>
+        <legend></legend>
+        <p style="padding-left: 1%">
+        <%= link_to t("index.revert"), 
+          new_post_revert_path(@post), 
+          class: "btn btn-large btn-primary" %>
+        </p>
+        <legend></legend>
+        <legend></legend>
+        <!--revert-->
+        <% num = 0 %>
+        <% @revert.each do |r| %>
+        <legend>
+          <small style="padding-left: 1%">
+            <%= num = num + 1%><%= t("index.row")%>
+          </small>
+        </legend>
+        <legend style="padding-left: 1%">
+          <%= r.content%>
+        </legend>
+        <small style="padding-left: 1%">
+          <%= t("index.user")%>:
+          <%= r.user.name%>
+          <%= t("index.createtime")%>:
+          <%= r.user.created_at.strftime('%Y-%m-%d %H:%M:%S').to_s %>
+        </small>
+        <% end %>
+    <!--revertEnd-->
+    </div>
+
+        <div class="span2" style="background-color: #FFFFFF">
+    <!--Body content-->
+            <% if signed_in? %>
+                <p><%= image_tag current_user.photo.url%></p>
+                <p style="padding-left: 1%">
+                欢迎
+                </p>
+                <p style="padding-left: 1%">
+                用户:<%= current_user.name %>
+                </p>
+                <p style="padding-left: 1%">
+                光临Tule---论坛
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最搞笑的图片!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最动听的音乐!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最带感的新闻!
+                </p>
+                <p>
+                </p>
+            <% else %>
+                <p style="padding-left: 1%">
+                欢迎
+                </p>
+                <p style="padding-left: 1%">
+                <%= link_to '登录', new_user_session_path, 
+                class: "brand"%>
+                </p>
+                <p style="padding-left: 1%">
+                <%= link_to '注册', new_user_registration_path, 
+                class: "brand"%>
+                </p>
+                <p style="padding-left: 1%">
+                Tule---论坛
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最搞笑的图片!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最动听的音乐!
+                </p>
+                <p style="padding-left: 1%">
+                这里有:
+                </p>
+                <p style="padding-left: 1%">
+                最带感的新闻!
+                </p>
+            <% end %>
+        </div>
+    </div>
+</div>

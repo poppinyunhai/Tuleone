@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span5 offset4" style="border: 1px solid #fff;  padding 20px; background-color: #FFFFFF">
+          <div style ="padding-left: 20%">
+            <h2><%= t("user.zhu")%></h2>
+
+              <%= form_for(resource,:html => { :multipart => true }, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+              <%= devise_error_messages! %>
+              <%= t("user.img")%>
+              <%= f.file_field :photo %> 
+              <div><%= f.label :name, t("user.name") %><br />
+              <%= f.text_field :name %></div>
+              <div><%= f.label :email, t("user.email") %><br />
+              <%= f.email_field :email, :autofocus => true %></div>
+
+              <div><%= f.label :password, t("user.pwd")%><br />
+              <%= f.password_field :password %></div>
+
+              <div><%= f.label :password_confirmation, t("user.pwdq") %><br />
+              <%= f.password_field :password_confirmation %></div>
+
+              <div><%= f.submit t("user.zhu") %></div>
+              <% end %>
+        <div style="padding-bottom: 20%">
+        <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

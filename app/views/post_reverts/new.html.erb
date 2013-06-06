@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3 offset4" style="border: 1px solid #fff;  padding 20px; background-color: #FFFFFF">
+          <div style ="padding-left: 20%">
+<%= form_for @revert, :url => post_reverts_path(@post) do |r| %>
+  <%= r.label :content, t("index.content")%>
+  <%= r.text_area :content %>
+  <p><%= r.submit t("index.revert") %>
+<% end %>
+        </div>
+      </div>
+    </div>
+</div>

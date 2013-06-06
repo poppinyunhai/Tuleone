@@ -1,0 +1,12 @@
+<div class="row" >
+    <ul class="span3 offset2">
+      <% @node.each do |node| %>
+      <li>
+      <%= node.name %>
+      <%= link_to t("index.update"), :controller => 'nodes', :action => 'edit', :id => node %>
+      <%= link_to t("index.delete"), node_path(node),:method => :delete%>
+      </li>
+     <% end %>
+    </ul>
+    <%= link_to t("index.createnode"), new_node_path%>
+</div>
